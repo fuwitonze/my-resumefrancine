@@ -1,4 +1,5 @@
-name: ci/cd pipeline for my resume
+name: Real time ci/cd pipeline for portfolio app
+
 on:
   push:
     branches: [ "main" ]
@@ -9,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-   
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,7 +24,6 @@ jobs:
         run: |
           docker build -t ${{ secrets.USERNAME }}/portfolio:${{ github.run_number }} .
           docker build -t ${{ secrets.USERNAME }}/portfolio:latest .
-
       - name: Push Docker Images
         run: |
           echo ${{ secrets.PASSWORD }} | docker login -u ${{ secrets.USERNAME }} --password-stdin
